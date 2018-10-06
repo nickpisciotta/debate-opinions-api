@@ -2,37 +2,29 @@ require 'open-uri'
 require 'nokogiri'
 require 'json'
 
-module OpionionsScraper
+module OpinionsScraper
     def self.scrapeSite(urls)
         urls.map do |url| 
             doc = Nokogiri::HTML(open(url))
-
-            opinion_title = doc.search('.q-title').text
-            percentage_yes = doc.search('.yes-text').text.split()[0]
-            percentage_no = doc.search('.no-text').text.split()[0]
+            final_debate = Hash.new
+            final_debate[:title] = doc.search('.q-title').text
+            final_debate[:percentage_yes] = doc.search('.yes-text').text.split()[0]
+            final_debate[:percentage_no] = doc.search('.no-text').text.split()[0]
             all_opinions = doc.search('#debate li.hasData')
-
             opinions = []
-            all_opinions.map do |opinion| 
+            all_opinions.each do |opinion| 
                 opinions.push(
                     comment: opinion.search('h2').text.strip() + " " + opinion.search('p').text.strip(),
                     author: opinion.search('cite a').text
-                )
-            end
-
-            number_of_comments = all_opinions.count
-            related_opinions = doc.search('.related-opinion-page li').map do |opinion| 
+                    )
+                end
+            final_debate[:opinons] = opinions 
+            final_debate[:total_opinions] = all_opinions.count
+            final_debate[:related_topics] = doc.search('.related-opinion-page li').map do |opinion| 
                 opinion.text 
             end 
-
-            final_debate = {
-                title: opinion_title,
-                percentage_yes: percentage_yes,
-                percentage_no: percentage_no,
-                opinions: opinions,
-                total_opinions: number_of_comments,
-                related_topics: related_opinions
-            }
+        
+            final_debate
         end.to_json
     end 
 end 

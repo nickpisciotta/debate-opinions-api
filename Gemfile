@@ -3,3 +3,4 @@ ruby '2.4.1'
 
 gem 'sinatra', require: 'sinatra/base'
 gem 'nokogiri'
+gem 'pry'

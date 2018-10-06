@@ -1,5 +1,5 @@
 require 'sinatra' 
 
-require_relative './opinions_controller.rb' 
+require_relative './opinions_api.rb' 
 
 run OpinionsApi
