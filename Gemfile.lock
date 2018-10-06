@@ -4,6 +4,7 @@ GEM
     coderay (1.1.2)
     method_source (0.9.0)
     mini_portile2 (2.3.0)
+    multi_json (1.13.1)
     mustermann (1.0.3)
     nokogiri (1.8.4)
       mini_portile2 (~> 2.3.0)
@@ -24,6 +25,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  multi_json
   nokogiri
   pry
   sinatra
