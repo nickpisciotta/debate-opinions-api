@@ -1,4 +1,4 @@
-I chose to use Sinatra to create this web service since it is a good fit for micro apis. 
+Created a small web scraping service with Sinatra. 
 I have implemented a pretty simple error handling strategy for a few of the possible exceptions that could be thrown. OpenURI will throw an OpenURI::HTTPError if the site is not found or a Errno::ENOENT (system call error) if the url does not contain a protocol identifier--a 404 or 400 is returned, respectively. A more comprehensive approach could be used to accomodate more errors as the API is built out.  A 204 is returned if no urls are provided.
 Multiple URLs from debate.org opinions can be sent in the body to be scraped and returned.
 I chose to use a POST HTTP method and pass the urls in the body since multiple urls could become unwieldy as query params. The API will provide the title, percent yes and no, all opinions with respective authors, total number of opinions, and all related topics for a debate topic. 
